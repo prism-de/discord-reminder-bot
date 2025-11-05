@@ -18,7 +18,7 @@ export const OK_REACTIONS = new Set(["✅", "👍", "🙇‍♂️", "🙇‍♀
 export const CHECK_INTERVAL_MS = 10 * 60 * 1000;
 
 // メンションからリマインドまでの待機時間（ミリ秒）— 本番は2日
-//export const REMIND_AFTER_MS = 2 * 24 * 60 * 60 * 1000;
-export const REMIND_AFTER_MS = 10 * 1000;
+export const REMIND_AFTER_MS = 2 * 24 * 60 * 60 * 1000;
+//export const REMIND_AFTER_MS = 10 * 1000;
 
 // テスト時は 60 * 1000（1分）などに一時変更して挙動確認すると便利

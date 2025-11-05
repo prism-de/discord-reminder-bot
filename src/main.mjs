@@ -126,15 +126,15 @@ async function pollAndRemind() {
       const resolved = await isResolvedByActivity(channel, original, r.userId, r.createdAtMs);
       if (!resolved) {
         const user = await client.users.fetch(r.userId);
-        await message.channel.send({
+        await channel.send({
             content: `${user}, こちら対応しましたか？(対応済みの場合ご放念ください)`,
             reply: {
-                messageReference: message.id, // ← 元の指摘メッセージを参照
+            messageReference: r.messageId, // ← 元の指摘メッセージIDにリプライ
             },
             });
-      } else {
-        await original.react("✅").catch(() => {});
-      }
+        } else {
+            await original.react("✅").catch(() => {});
+        }
       // 一回通知で終了（繰り返したい場合は r.dueAtMs += 任意間隔; keep.push(r) へ）
     } catch {
       // 消えたチャンネル/メッセージは破棄
