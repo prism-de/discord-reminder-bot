@@ -1,0 +1,8 @@
+{
+"name": "my-discord-reminder-bot",
+"version": "0.1.0",
+"type": "module",
+"main": "src/main.mjs",
+"scripts": {"dev":"node src/main.mjs","start":"node src/main.mjs"},
+"dependencies": {"discord.js":"^14.16.3","express":"^4.19.2","pm2":"^5.4.2"}
+}
