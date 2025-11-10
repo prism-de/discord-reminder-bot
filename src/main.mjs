@@ -149,9 +149,24 @@ client.on(Events.MessageCreate, async (message) => {
     if (message.author.bot) return;
     const name = message.channel?.name ?? "";
     if (!CHANNEL_NAME_KEYWORDS.some(k => name.includes(k))) return;
-    // 返信だけでメンション無しは除外
-    if (message.reference && message.mentions.users.size === 0) return;
-    if (message.mentions.users.size === 0) return;
+
+    // ---------- ここから修正ガード ----------
+    // 返信メッセージの「暗黙メンションのみ」を除外する
+    if (message.reference) {
+      // 返信先の相手が暗黙メンションとして含まれる場合に値が入る
+      const repliedUser = message.mentions.repliedUser ?? null;
+
+      const onlyImplicitReplyMention =
+        repliedUser &&
+        message.mentions.users.size === 1 &&
+        message.mentions.users.has(repliedUser.id);
+
+      // 返信だが明示的メンションが無い（= mentions 0）か、
+      // 暗黙メンション“だけ”を含む（= onlyImplicitReplyMention）なら対象外
+      if (message.mentions.users.size === 0 || onlyImplicitReplyMention) return;
+    }
+    // ---------- 修正ガードここまで ----------    
+
 
     const guild = message.guild;
     for (const [, user] of message.mentions.users) {
