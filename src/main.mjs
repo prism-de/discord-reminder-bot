@@ -127,7 +127,7 @@ async function pollAndRemind() {
       if (!resolved) {
         const user = await client.users.fetch(r.userId);
         await channel.send({
-            content: `${user}, こちら対応しましたか？(対応済みの場合ご放念ください)`,
+            content: `${user} こちら対応しましたか？(対応済みの場合ご放念ください)`,
             reply: {
             messageReference: r.messageId, // ← 元の指摘メッセージIDにリプライ
             },
